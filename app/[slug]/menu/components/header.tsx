@@ -13,7 +13,7 @@ interface RestaurantHeaderProps {
 
 const RestaurantHeader = ({restaurant}: RestaurantHeaderProps) => {
     const router = useRouter();
-    const handleBackClick = () => router.back()
+    const handleBackClick = () => router.back();
     
     return (
     <div className="relative h-[250px] w-full">
@@ -33,7 +33,7 @@ const RestaurantHeader = ({restaurant}: RestaurantHeaderProps) => {
         />
         <Button variant="secondary" size="icon" className="absolute top-4 right-4 rounded-full z-10">
             <ScrollTextIcon />
-        </Button>
+        </Button> 
     </div>
     )
 }
