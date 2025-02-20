@@ -6,13 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 interface ConsumptionMethodOptionProps {
+    slug: string;
     imageUrl: string;
     imageAlt: string;
     buttonText: string;
     option: ConsumptionMethod;
 }
 
-const ConsumptionMethodOption = ({imageUrl, imageAlt, buttonText, option}: ConsumptionMethodOptionProps) => {
+const ConsumptionMethodOption = ({imageUrl, imageAlt, buttonText, option, slug}: ConsumptionMethodOptionProps) => {
     return (
     <Card>
         <CardContent className="flex flex-col items-center gap-8 py-8">
@@ -24,8 +25,8 @@ const ConsumptionMethodOption = ({imageUrl, imageAlt, buttonText, option}: Consu
                 className="object-contain"
                 />
             </div>
-            <Button variant="secondary" className="rounded-full">
-                <Link href={`/menu?consumptionMethod=${option}`}>
+            <Button variant="secondary" className="rounded-full" asChild>
+                <Link href={`/${slug}/menu?consumptionMethod=${option}`}>
                     {buttonText}
                 </Link>
             </Button>
