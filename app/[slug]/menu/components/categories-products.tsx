@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 
+import FormatValue from "@/helpers/format-value";
+
 interface CategoriesProductsProps {
     products: Product[]
 }
@@ -21,11 +23,7 @@ const CategoriesProducts = ({products}: CategoriesProductsProps) => {
                     <div>
                         <h3 className="text-sm font-medium">{product.name}</h3>
                         <p className="line-clamp-2 text-sm text-muted-foreground">{product.description}</p>
-                        <p className="pt-3 text-sm font-semibold">
-                            {Intl.NumberFormat("pt-BR", {
-                            style: "currency",
-                            currency: "BRL"
-                        }).format(product.price)}</p>
+                        <p className="pt-3 text-sm font-semibold">{FormatValue(product.price)}</p>
                     </div>
                     <div className="relative min-h-[82px] min-w-[120px]">
                         <Image 
