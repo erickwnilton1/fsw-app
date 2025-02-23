@@ -16,6 +16,7 @@ export interface ICartContext {
     addProduct: (product: CartProduct) => void;
     decreaseProductQuantity: (productId: string) => void;
     increaseProductQuantity: (productId: string) => void;
+    removeProduct: (productId: string) => void;
 }
 
 export const CartContext = createContext<ICartContext>({
@@ -24,7 +25,8 @@ export const CartContext = createContext<ICartContext>({
     toggleCart: () => {},
     addProduct: () => {},
     decreaseProductQuantity: () => {},
-    increaseProductQuantity: () => {}
+    increaseProductQuantity: () => {},
+    removeProduct: () => {},
 });
 
 export const CartProvider = ({children}: {children: ReactNode}) => {
@@ -44,7 +46,6 @@ export const CartProvider = ({children}: {children: ReactNode}) => {
             return setProducts((prev) => [...prev, product])
         }
 
-        //checks if the product already exists and adds +1
         setProducts((prevProducts) => {
            return prevProducts.map((prevProduct) => {
             if(prevProduct.id === product.id) {
@@ -86,6 +87,10 @@ export const CartProvider = ({children}: {children: ReactNode}) => {
         })
     }
 
+    const removeProduct = (productId: string) => {
+        setProducts(prevProducts => prevProducts.filter(prevProduct => prevProduct.id !== productId))
+    }
+
     return (
         <CartContext.Provider 
         value={{
@@ -94,7 +99,8 @@ export const CartProvider = ({children}: {children: ReactNode}) => {
             toggleCart: toggleCart,
             addProduct: addProduct,
             decreaseProductQuantity: decreaseProductQuantity,
-            increaseProductQuantity: increaseProductQuantity
+            increaseProductQuantity: increaseProductQuantity,
+            removeProduct: removeProduct
             }}
             >
                 {children}
