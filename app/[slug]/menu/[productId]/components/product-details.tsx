@@ -45,7 +45,7 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
     const handleAddToCart = () => {
         addProduct({
             ...product,
-            quantity: 1
+            quantity: quantity
         })
         toggleCart()
     }

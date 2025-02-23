@@ -4,7 +4,7 @@ import { Product } from "@prisma/client";
 import { createContext, ReactNode, useState } from "react";
 
 //create an interface to extend the Product table by adding the quantity method: number
-interface CartProduct 
+export interface CartProduct 
   extends Pick<Product, "id" | "name" | "price" | "imageUrl"> {
   quantity: number;
 }
@@ -28,11 +28,31 @@ export const CartProvider = ({children}: {children: ReactNode}) => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const toggleCart = () => {
-        setIsOpen(prev => !prev)
+        setIsOpen((prev) => !prev)
     }
 
     const addProduct = (product: CartProduct) => {
-        setProducts((prev) => [...prev, product])
+        const productIsAlredyOnTheCart = products.some(
+            (prevProduct) => prevProduct.id === product.id
+        );
+
+        if(!productIsAlredyOnTheCart) {
+            return setProducts((prev) => [...prev, product])
+        }
+
+        //checks if the product already exists and adds +1
+        setProducts((prevProducts) => {
+           return prevProducts.map((prevProduct) => {
+            if(prevProduct.id === product.id) {
+                return {
+                    ...prevProduct,
+                    quantity: prevProduct.quantity + product.quantity
+                }
+            }
+
+            return prevProduct;
+           })
+        })
     }
 
     return (
